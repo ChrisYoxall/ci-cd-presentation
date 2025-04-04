@@ -1,0 +1,40 @@
+name: Build SPA
+
+on:
+  workflow_call:
+  workflow_dispatch:
+
+env:
+  VOLTA_FEATURE_PNPM: 1
+  DIST_DIR: ${{ github.workspace }}/react-spa/dist
+
+jobs:
+  
+  build:
+    
+    runs-on: ubuntu-latest
+    
+    defaults:
+      run:
+        working-directory: ${{ github.workspace }}/react-spa
+
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v4
+        
+      - name: Restore packages
+        uses: volta-cli/action@v4
+      
+      - run: pnpm i
+      - run: pnpm lint
+      - run: pnpm test
+      - run: pnpm build
+        
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: react-spa-artifacts
+          path: ${{ env.DIST_DIR }}
+          retention-days: 1
+        
