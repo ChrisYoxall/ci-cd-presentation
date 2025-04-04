@@ -1,15 +1,14 @@
-name: Build SPA
-
 on:
   workflow_call:
   workflow_dispatch:
 
 env:
   VOLTA_FEATURE_PNPM: 1
+  DIST_DIR: ${{ github.workspace }}/dist
 
 jobs:
   
-  Build-SPA:
+  build:
     
     runs-on: ubuntu-latest
     
@@ -29,4 +28,11 @@ jobs:
       - run: pnpm lint
       - run: pnpm test
       - run: pnpm build
+        
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: react-spa-artifacts
+          path: ${{ env.DIST_DIR }}
+          retention-days: 1
         

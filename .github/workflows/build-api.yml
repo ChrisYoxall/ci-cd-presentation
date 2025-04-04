@@ -1,5 +1,3 @@
-name: Build API
-
 on:
   workflow_call:
   workflow_dispatch:
@@ -9,7 +7,7 @@ env:
 
 jobs:
   
-  Build-API:
+  build:
 
     runs-on: ubuntu-latest
     
