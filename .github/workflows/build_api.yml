@@ -6,7 +6,6 @@ on:
 
 env:
   PUBLISH_DIR: ${{ github.workspace }}/publish/dotnet-api
-  ARTIFACT_FILE: dotnet-api-artifacts.zip  
 
 jobs:
   
@@ -41,13 +40,9 @@ jobs:
         working-directory: ${{ github.workspace }}/dotnet-api/BuildDeploy.Demo
         run: dotnet publish --configuration Release --no-build --output ${{ env.PUBLISH_DIR }}
 
-      - name: Zip artifacts
-        working-directory: ${{ env.PUBLISH_DIR }}
-        run: zip -r ${{ env.ARTIFACT_FILE }} .
-
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
           name: dotnet-api-artifacts
-          path: ${{ env.PUBLISH_DIR }}/${{ env.ARTIFACT_FILE }}
+          path: ${{ env.PUBLISH_DIR }}
           retention-days: 1
