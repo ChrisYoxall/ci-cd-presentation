@@ -30,13 +30,7 @@ namespace BuildDeploy.Demo.Tests
                 .Setup(f => f.CreateClient(It.IsAny<string>()))
                 .Returns(httpClient);
         }
-
-        [Fact]
-        public void Failing_test()
-        {
-            Assert.True(false);
-        }
-
+        
         [Fact]
         public async Task ValidateGitHubUser_ReturnsOkWithUser_WhenUserExists()
         {
