@@ -1,3 +1,5 @@
+name: Build SPA
+
 on:
   workflow_call:
   workflow_dispatch:
