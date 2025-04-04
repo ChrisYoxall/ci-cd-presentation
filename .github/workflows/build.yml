@@ -8,5 +8,9 @@ on:
 
 jobs:
   
-  build_api:
-    uses: ./.github/workflows/build_api.yml
+  build-api:
+    uses: ./.github/workflows/build-api.yml
+    
+  build-spa:
+    uses: ./.github/workflows/build-spa.yml
+    needs: build-api
