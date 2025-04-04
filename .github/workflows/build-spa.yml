@@ -6,7 +6,7 @@ on:
 
 env:
   VOLTA_FEATURE_PNPM: 1
-  DIST_DIR: ${{ github.workspace }}/dist
+  DIST_DIR: ${{ github.workspace }}/react-spa/dist
 
 jobs:
   
