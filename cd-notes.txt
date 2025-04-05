@@ -1,0 +1,44 @@
+
+SOME NOTES ON THE NEXT PART OF THIS PRESENTATION - CD
+
+
+Deploying:
+
+    Demonstrating CD can be tricky as have to deploy somewhere. One option is to run everything locally inside
+    containers. As we don't want any external dependencies can't push to a container repository, so the idea
+    is to run a generic off-the-shelf image and copy the files inside the container to do the deploy.
+
+
+Leave code in GitHub but build in Jenkins (just to give contrast as much as anything in using a different
+CI tool). This is what Claude said about blocking PR merges until a build passes in Jenkins:
+
+    To ensure that PRs on GitHub can't be merged until Jenkins successfully builds them, you can set up a GitHub branch
+    protection rule with status checks tied to your Jenkins build. Here's how to implement this:
+    
+        1. Set up a webhook from GitHub to Jenkins to trigger builds on PR creation
+        
+        2. Configure Jenkins to report build status back to GitHub:
+        
+                Install the "GitHub Integration Plugin" in Jenkins
+                Configure Jenkins to report build statuses back to GitHub using the GitHub API
+        
+        3. Create a branch protection rule in GitHub:
+        
+                Go to your repository → Settings → Branches
+                Add a rule for your main/master branch
+                Check "Require status checks to pass before merging"
+                Search for and select your Jenkins build status check
+                Enable "Require branches to be up to date before merging"        
+        
+        4. Optionally enhance the setup with:
+        
+                The GitHub Pull Request Builder plugin for Jenkins
+                Jenkins Pipeline scripts in a Jenkinsfile in your repo
+
+    This setup creates a workflow where:
+    
+        - A PR is created in GitHub
+        - GitHub notifies Jenkins via webhook
+        - Jenkins builds the PR and reports status back to GitHub
+        - GitHub prevents merging until the status check passes
+    
