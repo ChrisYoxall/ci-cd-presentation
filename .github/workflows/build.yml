@@ -14,7 +14,8 @@ jobs:
   
   # Multiple commands run in different jobs or steps will run in different shells. Can run multiple
   # commands as shown here. While the variable replacement syntax {{ }} will work for YAML templating
-  # but not to substitute variables in a script.
+  # but not to substitute variables in a script. Can use standard Linux style (since we are using a
+  # Linux runner) replacement, but need double quotes as single quotes print the literal string.
   script-job:
     runs-on: ubuntu-latest
     env:
