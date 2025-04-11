@@ -1,111 +1,120 @@
 
 
 
-
-Using the same bullet points from the notes from Claude (my email)
-
-
-
-
-SLIDE ONE (TITLE PAGE) - CONTINUOUS INTEGRATION
+Timing:
+* roughly 20 minutes on theory
+* roughly 20 minutes talking GitHub Actions
+* 20 minutes to play with demo
 
 
 
-SLIDE TWO (FOLLOW UP TITLE) - THE FIRST OF TWO PRESENTATIONS ON Continuous Integration / Continuous Deployment (CI/CD)
-
-Notes:
-
-* This presentation will focus on CI
-* Have roughly 20 minutes on theory, roughly 20 minutes talking about implementation with GitHub Actions, 20 minutes to play.
-
-
-SLIDE THREE - About me
-
-
-
-
-SLIDE FOUR - About you
+SLIDE ONE (TITLE PAGE) - CI / CD
 
 * I'm assuming you want to be or learn more about software development?
-* Write code every day is my advice. 
-* CI/CD may not be something you need to know much about
-
-Notes:
-* Have you had any experience or courses that focuses on CI/CD?
-* 
-* Don't stress that it's another thing to learn.
-    - Most larger companies will have dedicated platform teams. However they still need someone to tell
-        them about the software your team creates to know how to deploy it so need that common terminology
-    - You can improve it if it doesn't work for your team or want to do more (i.e different tools, monitoring, alerts etc..)
-    - Gives you a better understanding of architecture. At some point you will need to debug an incident in production
-        that works fine on your computer. What will you do?
+* Write code every day is my advice. Do you know how to build and deploy it manually to a function or managed service. 
+* CI/CD may not be something you need to know much about, particularly when you are new, but
+    the odds are you will have to fix it at some point. Teaches you about your platform which
+    will help troubleshooting.
 
 
+SLIDE TWO - About me
 
-SLIDE FIVE - CI Definition
 
-Developers frequently merge their code changes into a central repository, followed by automated checks.
+SLIDE THREE - Part 1: CI 
 
-* Frequently
-* Build & Test
-* Automated
+* Splitting this up into two presentations. Today is CI.
 
-Notes:
-* Frequently usually means at least once a day. Can be as many as you want.
-    - People are working on very similar code bases. What if a team of 3 each has a feature that takes 3-5 days?
-        Code diverges and more chance of code conflicts
+
+
+SLIDE FOUR - CI Definition
+
+Frequently merge code changes into a central repository, followed by automated checks.
+
+* Frequent usually means at least once a day.
+    - Can be lots of people working on a code bases. What if a team of 3 each has a feature that takes 3-5 days?
+        Code diverges and more chance of code conflicts.
     - Daily merges mean merges are small. Much easier to approve a PR that is 100 lines than 500 lines.
+        If you can commit more often than once a day - then do so.
     - If you have gone down the wrong path then it minimises wasted effort.
+    
+* Central repository
+    - Doesn't mean you merge other changes into your code. You also merge. Aim is to try and keep
+        one copy of code
+    - Doesn't matter what version control system you use or the branching strategy (i.e. GitFlow, Feature
+        Branches, Trunk Based)
+        
+* Automated checks
+    - ASK What are some of the checks?
+    - Linting, build (it's a check), unit tests (possibly coverage), tools for code quality & security (lots of
+        options here and you may run several). User acceptance testing.
+    - Integration tests are a bit of a grey area. Yes you need at least some, however:
+        * Does this include end-to-end (UI) tests?
+        * Performance tests?
+        * Should always do some integration tests but may have larger tests suits that don't run as part of build.
+            Really need the pipeline to be fast (i.e. 10 minutes or so)
+    - Need to keep pipelines as fast as possible. Needs to be automated and needs continuous optimisation
     - If something breaks, and a small change has just been merged, it's much easier to troubleshoot.
-* Ensure your changes haven't broken anything by running checks
-    - Building is one of the easiest checks
-    - Common to have multiple tests and checks here - will cover soon. Unit testing is the most common.
-* Automated:
-    - Needs to be fast i.e. less than 15 min. If people are comitting frequently anything longer will start to back up the 
-        pipeline. Want to notify the person who made the change before they get into their next task.
-    - You may have to make changes to the pipeline or your tests to speed them up.
-    - Fast feedback loops
 
-** Mention version control and branching strategies. Doesn't matter what version control system you use
-or the branching strategy (i.e. GitFlow, Feature Branches, Trunk Based) it's just merging frequently and running
-automated tests.
 
-SLIDE SIX - BENEFITS
+SLIDE FIVE - BENEFITS
 
 * Improve quality
 * Improves collaboration
-* Reduce development time
+* Reduce development time. Will talk more about DORA in CD session, but there is proof that smaller changes
+    made regularly is faster overall than making a series of big changes.
 
-FLESH THIS OUT MORE - should be mentioned in previous slide - this is a summary
+ASK - Do you think this makes sense?
 
+Picture if people didn't do this. Could have 2-3 people merging big changes towards the end of a sprint. Errors
+can be hard to pin down.
 
-SLIDE SEVEN - TYPES OF CHECKS
-
-* Linting. 
-* It builds
-* Unit tests
-* Unit test coverage
-* Code quality
-* Security analysis
-* Integration tests
-* End to End (UI tests)
-* Performance tests
-
-Notes:
-
-Don't need all of these.
-
-* Can fail linting rules even before builds
-* Needs to be able to build
-* Unit testing is very common.
-* Unit test coverage. This wont usually stop the process, but is a good metric to watch.
-* For example duplicated code. 
-* Warns about possible security issues
-* 
+I struggle to remember what code I wrote last week. Finding an issue on the same day as it's written makes
+it much easier to fix.
 
 
+SLIDE SIX - RELATED CONCEPTS
 
-ADD A TOOLS SLIDE FOR COMMON CI/CD PLATFORMS
+Want to relate CI to other terms you may hear in the industry.
+
+* Keep the pipeline green.
+    - Ensure you watch the result of your commit or get notified if there is an issue. Fixing a broken pipeline
+        is always the top priority. Have heard of things like 'dunce hats' or 'trophies' for people who
+        break the build.
+* Feature Toggling.
+* Shift Left.
+    - Moving things that traditionally happened later in the development cycle, earlier (i.e. User acceptance
+        testing, testing in general, penetration testing).
+
+        
+SLIDE SEVEN - How do we do it?
+
+Covered the principles. Hopefully you want to implement it. What next?
+
+* It's not just a technical change:
+    can be a change in working amongst the team - talk about it.
+    get buy in from rest of team
+    don't just go and implement a pipeline that supports CI if people will still commit weekly
+    do you measure how frequently people merge? Can be a touchy subject
+* Pipeline work requires coding.
+    plan out what you want to do
+    get time allocated
+    treat pipelines like code (keep it simple, don't repeat yourself - make reusable components, comment and document) 
+* Takes more time than people expect. Partly because it's hard to test
+* In general, pipelines implement the same steps you would do to do build and check locally.
+
+
+SLIDE EIGHT - Tools
+
+Lots of tools for CI.
+
+* Was lazy - I searched for common tools and found this list. Tons of lists out there, all similar.
+* How do you decide?
+    - Normal process of evaluation for company fit, costs, etc.
+    - Don't underestimate the value of a pipeline and how much time and effort it may need. It may not be
+        obvious code that needs to be maintained, but it can become a big process and vital to the company as
+        it's the key to getting code or fixes out.
+
+
 
 
 A Slide on COSTS - or part of tools
@@ -119,7 +128,6 @@ I've always found the terminology a bit confusing:
     * defined in YAML
     * are triggered by an event (i.e. PR created, scheduled run, webhook, manually)
     * run on a  VM (Ubuntu, Windows, or MacOS)
-
 * Workflows are made up of Jobs
 * Jobs are made up of Steps
 * Steps run workflows, scripts, or run an Action
