@@ -12,6 +12,9 @@ concurrency:
 
 jobs:
   
+  # Multiple commands run in different jobs or steps will run in different shells. Can run multiple
+  # commands as shown here. Note how setting an environment variable doesn't update environment variables
+  # on the runner.
   script-job:
     runs-on: ubuntu-latest
     env:
@@ -24,9 +27,11 @@ jobs:
           free -m
           uname -ron
           printenv
+          echo 'My name is {{ env.MY_NAME }}'
     
   build-api:
     uses: ./.github/workflows/build-api.yml
+    needs: script-job
     
   build-spa:
     uses: ./.github/workflows/build-spa.yml
