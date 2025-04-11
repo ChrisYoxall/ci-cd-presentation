@@ -14,7 +14,8 @@ jobs:
   
   # Multiple commands run in different jobs or steps will run in different shells. Can run multiple
   # commands as shown here. Note how setting an environment variable doesn't update environment variables
-  # on the runner.
+  # on the runner. You need to use double quotes to have variables substituted, or the literal string
+  # will be printed.
   script-job:
     runs-on: ubuntu-latest
     env:
@@ -28,6 +29,7 @@ jobs:
           uname -ron
           printenv
           echo 'My name is {{ env.MY_NAME }}'
+          echo "My name is {{ env.MY_NAME }}"
     
   build-api:
     uses: ./.github/workflows/build-api.yml
