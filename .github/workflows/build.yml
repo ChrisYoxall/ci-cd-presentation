@@ -13,9 +13,8 @@ concurrency:
 jobs:
   
   # Multiple commands run in different jobs or steps will run in different shells. Can run multiple
-  # commands as shown here. Note how setting an environment variable doesn't update environment variables
-  # on the runner. You need to use double quotes to have variables substituted, or the literal string
-  # will be printed.
+  # commands as shown here. While the variable replacement syntax {{ }} will work for YAML templating
+  # but not to substitute variables in a script.
   script-job:
     runs-on: ubuntu-latest
     env:
@@ -29,7 +28,8 @@ jobs:
           uname -ron
           printenv
           echo 'My name is {{ env.MY_NAME }}'
-          echo "My name is {{ env.MY_NAME }}"
+          echo 'My name is $MY_NAME'
+          echo "My name is $MY_NAME"
     
   build-api:
     uses: ./.github/workflows/build-api.yml
