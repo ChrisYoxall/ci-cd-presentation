@@ -20,14 +20,26 @@
 
 	<!-- Theme used for syntax highlighting of code -->
 	<link rel="stylesheet" href="plugin/highlight/monokai.css">
+
+	<!-- Custom inline CSS to override h3 styles -->
+	<style>
+
+		.reveal h2 {
+			color: green !important;
+		}
+
+		.reveal h3 {
+			text-transform: none !important;
+			color: green !important;
+		}
+	</style>
+
 </head>
 
 
 <body>
 
 <div class="reveal">
-
-	<!-- Any section element inside of this container is displayed as a slide -->
 
 	<div class="slides">
 
@@ -81,7 +93,7 @@
 		<section>
 			<h3>How do we implement it?</h3>
 			<div class="fragment fade-in-then-semi-out">Not just a technical task - it's a change in development practices</div>
-			<div class="fragment fade-in-then-semi-out">Treat pipeline implementation / maintanance like regular code</div>
+			<div class="fragment fade-in-then-semi-out">Treat pipeline code like application code</div>
 			<div class="fragment fade-in-then-semi-out">Don't underestimate time</div>
 			<div class="fragment fade-in-then-semi-out">Can you build and deploy yourself?</div>
 		</section>
@@ -95,58 +107,33 @@
 		</section>
 
 
-
-
-
-		<!-- 4 -->
+		<!-- 9 -->
 		<section>
-			<h3>Test</h3>
-			<div>
-				<div class="fragment fade-in-then-semi-out">first</div>
-				<div class="fragment fade-in-then-semi-out">second</div>
-				<div class="fragment fade-in-then-semi-out">third</div>
-			</div>
+			<h3>GitHub Actions</h3>
+			<a href="https://docs.github.com/en/actions" class="fragment fade-in-then-semi-out">Documentation</a>
+			<div class="fragment fade-in-then-semi-out">Create workflows</div>
+			<div class="fragment fade-in-then-semi-out">Workflows get triggered by events</div>
+			<div class="fragment fade-in-then-semi-out">Workflows are made up of jobs</div>
+			<div class="fragment fade-in-then-semi-out">Jobs are made up of steps</div>
+			<div class="fragment fade-in-then-semi-out">Steps run workflows, scripts or actions</div>
+			<div class="fragment fade-in-then-semi-out">This all happens on runners</div>
 		</section>
 
 
-		<!-- 4 -->
+		<!-- 10 -->
 		<section>
-			<h3>Test</h3>
-			<div>
-				<div class="fragment fade-in-then-semi-out">first</div>
-				<div class="fragment fade-in-then-semi-out">second</div>
-				<div class="fragment fade-in-then-semi-out">third</div>
-			</div>
+			<h3>Demo</h3>
+			<a href="https://github.com/ChrisYoxall/ci-cd-presentation">https://github.com/ChrisYoxall/ci-cd-presentation</a>
 		</section>
 
 
-		<!-- 4 -->
+		<!-- 11 -->
 		<section>
-			<h3>Test</h3>
-			<div>
-				<div class="fragment fade-in-then-semi-out">first</div>
-				<div class="fragment fade-in-then-semi-out">second</div>
-				<div class="fragment fade-in-then-semi-out">third</div>
-			</div>
+			<h3>Final Notes</h3>
+			<div class="fragment fade-in-then-semi-out">Enable checks to be run locally</div>
+			<div class="fragment fade-in-then-semi-out">Consider security when choosing Actions to run</div>
 		</section>
-
-		<section>
-			<h3>Test</h3>
-			<div>
-				<div class="fragment fade-in-then-semi-out">first</div>
-				<div class="fragment fade-in-then-semi-out">second</div>
-				<div class="fragment fade-in-then-semi-out">third</div>
-			</div>
-		</section>
-
-		<section>
-			<h3>Test</h3>
-			<div>
-				<div class="fragment fade-in-then-semi-out">first</div>
-				<div class="fragment fade-in-then-semi-out">second</div>
-				<div class="fragment fade-in-then-semi-out">third</div>
-			</div>
-		</section>
+		
 	</div>
 
 </div>
@@ -158,7 +145,6 @@
 <script src="plugin/markdown/markdown.js"></script>
 <script src="plugin/highlight/highlight.js"></script>
 <script>
-
 	// Also available as an ES module, see:
 	// https://revealjs.com/initialization/
 	Reveal.initialize({
@@ -170,7 +156,6 @@
 		// Learn about plugins: https://revealjs.com/plugins/
 		plugins: [ RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight ]
 	});
-
 </script>
 
 </body>

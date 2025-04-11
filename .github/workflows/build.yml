@@ -5,9 +5,26 @@ on:
   push:
     branches: [ "main" ]
   workflow_dispatch: 
+    
+concurrency: 
+  group: build-all-{{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   
+  script-job:
+    runs-on: ubuntu-latest
+    env:
+      MY_NAME: Chris
+    steps:
+      - name: script-example
+        run: |
+          echo 'Running multiple commands in the same shell'
+          ls -al
+          free -m
+          uname -ron
+          printenv
+    
   build-api:
     uses: ./.github/workflows/build-api.yml
     

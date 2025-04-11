@@ -27,8 +27,11 @@ jobs:
         uses: volta-cli/action@v4
       
       - run: pnpm i
+        
       - run: pnpm lint
+        
       - run: pnpm test
+        
       - run: pnpm build
         
       - name: Upload artifacts

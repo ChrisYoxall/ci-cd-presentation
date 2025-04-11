@@ -2,13 +2,13 @@
 
 
 Timing:
-* roughly 20 minutes on theory
-* roughly 20 minutes talking GitHub Actions
-* 20 minutes to play with demo
+* roughly 20 minutes on theory, up to slide seven
+* roughly 20 minutes talking GitHub Actions, working through demo
+* 20 minutes to play with and hopefully run the demo workflows
 
 
 
-SLIDE ONE (TITLE PAGE) - CI / CD
+### SLIDE ONE (TITLE PAGE) - CI / CD
 
 * I'm assuming you want to be or learn more about software development?
 * Write code every day is my advice. Do you know how to build and deploy it manually to a function or managed service. 
@@ -17,16 +17,15 @@ SLIDE ONE (TITLE PAGE) - CI / CD
     will help troubleshooting.
 
 
-SLIDE TWO - About me
+### SLIDE TWO - About me
 
 
-SLIDE THREE - Part 1: CI 
+### SLIDE THREE - Part 1: CI 
 
 * Splitting this up into two presentations. Today is CI.
 
 
-
-SLIDE FOUR - CI Definition
+### SLIDE FOUR - CI Definition
 
 Frequently merge code changes into a central repository, followed by automated checks.
 
@@ -44,7 +43,7 @@ Frequently merge code changes into a central repository, followed by automated c
         Branches, Trunk Based)
         
 * Automated checks
-    - ASK What are some of the checks?
+    - **ASK** What are some of the checks?
     - Linting, build (it's a check), unit tests (possibly coverage), tools for code quality & security (lots of
         options here and you may run several). User acceptance testing.
     - Integration tests are a bit of a grey area. Yes you need at least some, however:
@@ -56,14 +55,14 @@ Frequently merge code changes into a central repository, followed by automated c
     - If something breaks, and a small change has just been merged, it's much easier to troubleshoot.
 
 
-SLIDE FIVE - BENEFITS
+### SLIDE FIVE - Benefits
 
 * Improve quality
 * Improves collaboration
 * Reduce development time. Will talk more about DORA in CD session, but there is proof that smaller changes
     made regularly is faster overall than making a series of big changes.
 
-ASK - Do you think this makes sense?
+**ASK** - Do you think this makes sense?
 
 Picture if people didn't do this. Could have 2-3 people merging big changes towards the end of a sprint. Errors
 can be hard to pin down.
@@ -72,21 +71,21 @@ I struggle to remember what code I wrote last week. Finding an issue on the same
 it much easier to fix.
 
 
-SLIDE SIX - RELATED CONCEPTS
+### SLIDE SIX - Related Concepts
 
 Want to relate CI to other terms you may hear in the industry.
 
 * Keep the pipeline green.
-    - Ensure you watch the result of your commit or get notified if there is an issue. Fixing a broken pipeline
-        is always the top priority. Have heard of things like 'dunce hats' or 'trophies' for people who
-        break the build.
+    - Ensure you watch the result of your commit or get notified if there is an issue.
+    - Fixing a broken pipeline is always the top priority. If it's broke you can't release.
+    - Have heard of things like 'dunce hats' or 'trophies' for people who break the build.
 * Feature Toggling.
 * Shift Left.
     - Moving things that traditionally happened later in the development cycle, earlier (i.e. User acceptance
         testing, testing in general, penetration testing).
 
         
-SLIDE SEVEN - How do we do it?
+### SLIDE SEVEN - How do we do it?
 
 Covered the principles. Hopefully you want to implement it. What next?
 
@@ -99,59 +98,60 @@ Covered the principles. Hopefully you want to implement it. What next?
     plan out what you want to do
     get time allocated
     treat pipelines like code (keep it simple, don't repeat yourself - make reusable components, comment and document) 
-* Takes more time than people expect. Partly because it's hard to test
+* Takes more time than people expect.
+    - Partly because it's hard to test.
+    - Don't underestimate the value of a pipeline, use this to justify time. Vital to get code out safely.
+    - It may not be obvious code that needs to be maintained, but it can become large & complex.
 * In general, pipelines implement the same steps you would do to do build and check locally.
 
 
-SLIDE EIGHT - Tools
+### SLIDE EIGHT - Tools
 
 Lots of tools for CI.
 
 * Was lazy - I searched for common tools and found this list. Tons of lists out there, all similar.
 * How do you decide?
     - Normal process of evaluation for company fit, costs, etc.
-    - Don't underestimate the value of a pipeline and how much time and effort it may need. It may not be
-        obvious code that needs to be maintained, but it can become a big process and vital to the company as
-        it's the key to getting code or fixes out.
+    - Choose something with good examples & guides
+    - Had people turn down jobs as they didn't want to use Jenkins
 
 
-
-
-A Slide on COSTS - or part of tools
-
-
-NEXT SLIDE - GITHUB ACTIONS
+### SLIDE NINE - GitHub Actions
 
 I've always found the terminology a bit confusing:
-* GitHub Actions is the name of the platform.
+    - GitHub Actions is the name of the platform
+    - Actions are also
+
+*Documentation is pretty good https://docs.github.com/en/actions:
+    - Go to page. Click on the nice green 'Overview' button
+    - Note section in menu to the left on 'Continuous Integration'.
+    - Click on the link at the bottom for 'actions/starter-workflows
+    - Show some other documentation. Only going to cover basics today
+        - Go to the section in the menu 'Write workflows'. Show 'syntax' 'choose what workflows do' sections.
 * To achieve a task, create a 'GitHub Actions workflow' 
-    * defined in YAML
-    * are triggered by an event (i.e. PR created, scheduled run, webhook, manually)
-    * run on a  VM (Ubuntu, Windows, or MacOS)
+    - defined in YAML
+    - are triggered by an event (i.e. PR created, scheduled run, webhook, manually)
 * Workflows are made up of Jobs
 * Jobs are made up of Steps
 * Steps run workflows, scripts, or run an Action
 * An Action is a custom application on the GitHub Actions platform to perform a common task
-    * Can write your own
-    * Lots of Actions available on the marketplace
+    - Can write your own
+    - Lots of Actions available on the marketplace
+* Runners
+    - A server that runs your workflows when they're triggered.
+    - Get a newly provisioned VM for each workflow. State management.
+    - GitHub provides Ubuntu Linux, Microsoft Windows, and macOS runners to run your workflows.
 
-Runners?
 
-
-Documentation is pretty good https://docs.github.com/en/actions:
-* Go to page
-* Click on the nice green 'Overview' button
-* Note section in menu to the left on 'Continuous Integration'. Click on the link at the bottom for 'actions/starter-workflows
-* Go to the section in the menu 'Write workflows' - most likely the 'syntax' and 'choose what workflows do' sections.
-
+### SLIDE TEN - Demo
 
 From https://dev.to/github/the-githubtoken-in-github-actions-how-it-works-change-permissions-customizations-3cgp:
 * The way this works is that when you enable GitHub Actions in a repository, GitHub installs a GitHub App on that. The GITHUB_TOKEN secret is a GitHub App installation access token.
 
 
+### SLIDE 11 - Final Notes
 
-
-
-
-WANT TO ENABLE THESE TO ALL BE RUN LOCALLY BEFORE PR
+* Its nice if developers can run steps locally. Consider this when designing a pipeline
+* Use Actions from reputable sources. Use popular Actions. Consider what version/commit to run or even fork into
+        your repo
 
