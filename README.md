@@ -4,8 +4,8 @@ The presentation sides are created to be viewed using [RevealJS](https://revealj
 
 Download the latest version from [here]( https://github.com/hakimel/reveal.js/archive/master.zip)
 
-Copy the 'presentation.html' file into the root directory and view it with a browser. Accompanying notes
-are in the 'presentation_notes.md' file.
+Extract RevealJs and copy the 'presentation.html' file into the root directory and then open it with a web
+browser. Can use the space bar or arrow keys to navigate. Accompanying notes are in the 'presentation_notes.md' file.
 
 ## Continuous Integration ##
 
