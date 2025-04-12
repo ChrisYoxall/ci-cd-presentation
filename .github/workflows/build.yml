@@ -5,11 +5,36 @@ on:
   push:
     branches: [ "main" ]
   workflow_dispatch: 
+    
+concurrency: 
+  group: build-all-{{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   
+  # Multiple commands run in different jobs or steps will run in different shells. Can run multiple
+  # commands as shown here. While the variable replacement syntax {{ }} will work for YAML templating
+  # but not to substitute variables in a script. Can use standard Linux style (since we are using a
+  # Linux runner) replacement, but need double quotes as single quotes print the literal string.
+  script-job:
+    runs-on: ubuntu-latest
+    env:
+      MY_NAME: Chris
+    steps:
+      - name: script-example
+        run: |
+          echo 'Running multiple commands in the same shell'
+          ls -al
+          free -m
+          uname -ron
+          printenv
+          echo 'My name is {{ env.MY_NAME }}'
+          echo 'My name is $MY_NAME'
+          echo "My name is $MY_NAME"
+    
   build-api:
     uses: ./.github/workflows/build-api.yml
+    needs: script-job
     
   build-spa:
     uses: ./.github/workflows/build-spa.yml

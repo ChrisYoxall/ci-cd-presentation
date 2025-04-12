@@ -1,94 +1,162 @@
 <!doctype html>
 <html lang="en">
 
-	<head>
-		<meta charset="utf-8">
+<head>
+	<meta charset="utf-8">
 
-		<title>reveal.js – The HTML Presentation Framework</title>
+	<title>CI / CD</title>
 
-		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
-		<meta name="author" content="Hakim El Hattab">
+	<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+	<meta name="author" content="Hakim El Hattab">
 
-		<meta name="apple-mobile-web-app-capable" content="yes">
-		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-		<link rel="stylesheet" href="dist/reset.css">
-		<link rel="stylesheet" href="dist/reveal.css">
-		<link rel="stylesheet" href="dist/theme/black.css" id="theme">
+	<link rel="stylesheet" href="dist/reset.css">
+	<link rel="stylesheet" href="dist/reveal.css">
+	<link rel="stylesheet" href="dist/theme/black.css" id="theme">
 
-		<!-- Theme used for syntax highlighting of code -->
-		<link rel="stylesheet" href="plugin/highlight/monokai.css">
-	</head>
+	<!-- Theme used for syntax highlighting of code -->
+	<link rel="stylesheet" href="plugin/highlight/monokai.css">
 
-	<body>
+	<!-- Custom inline CSS to override h3 styles -->
+	<style>
 
-		<div class="reveal">
+		.reveal h2 {
+			color: green !important;
+		}
 
-			<!--  NOTES
+		.reveal h3 {
+			text-transform: none !important;
+			color: green !important;
+		}
+	</style>
 
-					All the things in the email.
-
-					Build and deploy needs to meet your developers cadence - or is it the other way.
-					
-					Split into build and then deploy?
-
-					Cover:
-					- Shift Left
-					- Immutable Infrastructure (Cloud Native Approach i.e. a deploy should replace an existing resource rather than update it)</li>
-			
-					Tidy up any extra references (i.e. are all the scripts down the botton needed?)
-
-			-->
+</head>
 
 
-			<!-- Any section element inside of this container is displayed as a slide -->
+<body>
 
-			<div class="slides">
+<div class="reveal">
 
-				
-				<section>
+	<div class="slides">
 
-					<h1>Build & Deploy</h1>
-
-					<h3>Things that happen after 'git push'</h3>
-
-				</section>
-
-
-				<section>
-
-					About me
-
-				</section>
+		<!-- 1 -->
+		<section>
+			<h2>Continuous Integration & Continuous Deployment</h2>
+			<h3>(CI/CD)</h3>
+			<p>Things that happen after 'git push'</p>
+		</section>
 
 
-			</div>
+		<!-- 2 -->
+		<section>
+			<h3>About me</h3>
+		</section>
 
-		</div>
 
-		<script src="dist/reveal.js"></script>
-		<script src="plugin/zoom/zoom.js"></script>
-		<script src="plugin/notes/notes.js"></script>
-		<script src="plugin/search/search.js"></script>
-		<script src="plugin/markdown/markdown.js"></script>
-		<script src="plugin/highlight/highlight.js"></script>
-		<script>
+		<!-- 3 -->
+		<section>
+			<h2>Part One</h2>
+			<h2>Continuous Integration</h2>
+		</section>
 
-			// Also available as an ES module, see:
-			// https://revealjs.com/initialization/
-			Reveal.initialize({
-				controls: true,
-				progress: true,
-				center: true,
-				hash: true,
 
-				// Learn about plugins: https://revealjs.com/plugins/
-				plugins: [ RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight ]
-			});
+		<!-- 4 -->
+		<section>
+			<h3>Definition</h3>
+			<p><span class="fragment highlight-blue">Frequently</span> merge code changes into a <span class="fragment highlight-blue">central repository</span>, followed by <span class="fragment highlight-blue">automated checks</span></p>
+		</section>
 
-		</script>
 
-	</body>
+		<!-- 5 -->
+		<section>
+			<h3>Benefits</h3>
+			<div class="fragment fade-in-then-semi-out">Improved code quality</div>
+			<div class="fragment fade-in-then-semi-out">Improved collaboration</div>
+			<div class="fragment fade-in-then-semi-out">Reduce development time</div>
+		</section>
+
+
+		<!-- 6 -->
+		<section>
+			<h3>Related Concepts</h3>
+			<div class="fragment fade-in-then-semi-out">Keep the pipeline green</div>
+			<div class="fragment fade-in-then-semi-out">Feature toggling</div>
+			<div class="fragment fade-in-then-semi-out">Shift left</div>
+		</section>
+
+
+		<!-- 7 -->
+		<section>
+			<h3>How do we implement it?</h3>
+			<div class="fragment fade-in-then-semi-out">Not just a technical task - it's a change in development practices</div>
+			<div class="fragment fade-in-then-semi-out">Treat pipeline code like application code</div>
+			<div class="fragment fade-in-then-semi-out">Don't underestimate time</div>
+			<div class="fragment fade-in-then-semi-out">Can you build and deploy yourself?</div>
+		</section>
+
+
+		<!-- 8 -->
+		<section>
+			<h3>Common CI tools</h3>
+			<a href="https://thectoclub.com/tools/best-ci-cd-tools/" class="fragment fade-in-then-semi-out">https://thectoclub.com/tools/best-ci-cd-tools/</a>
+			<div class="fragment fade-in-then-semi-out">How do you decide?</div>
+		</section>
+
+
+		<!-- 9 -->
+		<section>
+			<h3>GitHub Actions</h3>
+			<a href="https://docs.github.com/en/actions" class="fragment fade-in-then-semi-out">Documentation</a>
+			<div class="fragment fade-in-then-semi-out">Create workflows</div>
+			<div class="fragment fade-in-then-semi-out">Workflows get triggered by events</div>
+			<div class="fragment fade-in-then-semi-out">Workflows are made up of jobs</div>
+			<div class="fragment fade-in-then-semi-out">Jobs are made up of steps</div>
+			<div class="fragment fade-in-then-semi-out">Steps run workflows, scripts or actions</div>
+			<div class="fragment fade-in-then-semi-out">This all happens on runners</div>
+		</section>
+
+
+		<!-- 10 -->
+		<section>
+			<h3>Demo</h3>
+			<a href="https://github.com/ChrisYoxall/ci-cd-presentation">https://github.com/ChrisYoxall/ci-cd-presentation</a>
+		</section>
+
+
+		<!-- 11 -->
+		<section>
+			<h3>Final Notes</h3>
+			<div class="fragment fade-in-then-semi-out">Enable checks to be run locally</div>
+			<div class="fragment fade-in-then-semi-out">Consider security when choosing Actions to run</div>
+		</section>
+		
+	</div>
+
+</div>
+
+<script src="dist/reveal.js"></script>
+<script src="plugin/zoom/zoom.js"></script>
+<script src="plugin/notes/notes.js"></script>
+<script src="plugin/search/search.js"></script>
+<script src="plugin/markdown/markdown.js"></script>
+<script src="plugin/highlight/highlight.js"></script>
+<script>
+	// Also available as an ES module, see:
+	// https://revealjs.com/initialization/
+	Reveal.initialize({
+		controls: true,
+		progress: true,
+		center: true,
+		hash: true,
+
+		// Learn about plugins: https://revealjs.com/plugins/
+		plugins: [ RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight ]
+	});
+</script>
+
+</body>
 </html>
