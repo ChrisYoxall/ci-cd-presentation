@@ -1,11 +1,41 @@
 pipeline {
+
     agent any
+
+    options {
+        disableConcurrentBuilds()
+        timestamps()
+    }
+    
+    parameters {
+        string(name: 'BRANCH_NAME', defaultValue: 'main', description: 'Git branch to build')
+    }
+
     
     stages {
-        stage('Hello') {
+    
+        stage('Checkout') {
             steps {
-                echo 'Hello World!'
+                checkout([
+                    $class: 'GitSCM',
+                    branches: [[name: "${params.BRANCH_NAME}"]],
+                    userRemoteConfigs: [[
+                        url: 'https://github.com/ChrisYoxall/ci-cd-presentation.git'
+                    ]]
+                ])
             }
         }
-    }
+    
+        stage('Build SPA') {
+            steps {
+                dir('react-spa') {
+                    script {
+                        def commitHash = sh(script: 'git rev-parse --short HEAD', returnStdout: true).trim()
+                        sh "docker build -t react-spa:${commitHash} ."
+                    }
+                }
+            }
+        }
+        
+     }
 }
