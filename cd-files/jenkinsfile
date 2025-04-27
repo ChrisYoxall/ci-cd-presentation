@@ -16,7 +16,7 @@ pipeline {
     
         stage('Checkout') {
             steps {
-                checkout scm
+                git branch: "${params.BRANCH_NAME}", url: scm.userRemoteConfigs[0].url
             }
         }
     
