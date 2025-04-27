@@ -11,29 +11,37 @@ pipeline {
         string(name: 'BRANCH_NAME', defaultValue: 'main', description: 'Git branch to build')
     }
 
+    environment {
+        SPA_IMAGE = ''
+        SPA_CONTAINER_NAME = 'react-spa'
+        API_IMAGE = ''
+        API_CONTAINER_NAME = 'dotnet-api'
+    }
     
     stages {
     
         stage('Checkout') {
             steps {
-                cleanWs()
-                checkout scm: [
-                    $class: 'GitSCM',
-                    branches: [[name: "${params.BRANCH_NAME}"]],
-                    userRemoteConfigs: [[
-                        url: 'https://github.com/ChrisYoxall/ci-cd-presentation.git',
-                        credentialsId: ''
-                    ]]
-                ]
+                git branch: "${params.BRANCH_NAME}", url: scm.userRemoteConfigs[0].url
             }
         }
     
+        // Will tag images with the Git commit hash and build number to get a unique value.
+        stage('Get image names') {
+            steps {
+                script {
+                    def commitHash = sh(script: 'git rev-parse --short HEAD', returnStdout: true).trim()
+                    env.SPA_IMAGE = "react-spa:${commitHash}-${BUILD_NUMBER}"
+                    env.API_IMAGE = "dotnet-api:${commitHash}-${BUILD_NUMBER}"
+                }
+            }
+        }
+        
         stage('Build SPA') {
             steps {
                 dir('react-spa') {
                     script {
-                        def commitHash = sh(script: 'git rev-parse --short HEAD', returnStdout: true).trim()
-                        sh "docker build -t react-spa:${commitHash} ."
+                        sh "docker build -t ${env.SPA_IMAGE} ."
                     }
                 }
             }
@@ -43,8 +51,7 @@ pipeline {
             steps {
                 dir('dotnet-api') {
                     script {
-                        def commitHash = sh(script: 'git rev-parse --short HEAD', returnStdout: true).trim()
-                        sh "docker build -t dotnet-api:${commitHash} ."
+                        sh "docker build -t${env.API_IMAGE} ."
                     }
                 }
             }
@@ -53,7 +60,17 @@ pipeline {
         stage('Run SPA') {
             steps {
                 script {
-                    echo 'need access to image, then need to stop existing container and run new one. Need to specify name so know which to stop'
+                    sh "docker container stop ${env.API_CONTAINER_NAME}"
+                    sh "docker run --name ${env.API_CONTAINER_NAME} ${env.API_IMAGE}"
+                }
+            }
+        }
+        
+        stage('Run API') {
+            steps {
+                script {
+                    sh "docker container stop ${env.SPA_CONTAINER_NAME}"
+                    sh "docker run --name ${env.SPA_CONTAINER_NAME} ${env.SPA_IMAGE}"
                 }
             }
         }
