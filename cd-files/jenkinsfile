@@ -16,13 +16,7 @@ pipeline {
     
         stage('Checkout') {
             steps {
-                checkout([
-                    $class: 'GitSCM',
-                    branches: [[name: "${params.BRANCH_NAME}"]],
-                    userRemoteConfigs: [[
-                        url: 'https://github.com/ChrisYoxall/ci-cd-presentation.git'
-                    ]]
-                ])
+                checkout scm
             }
         }
     
@@ -37,5 +31,24 @@ pipeline {
             }
         }
         
-     }
+        stage('Build API') {
+            steps {
+                dir('dotnet-api') {
+                    script {
+                        def commitHash = sh(script: 'git rev-parse --short HEAD', returnStdout: true).trim()
+                        sh "docker build -t dotnet-api:${commitHash} ."
+                    }
+                }
+            }
+        }
+        
+        stage('Run SPA') {
+            steps {
+                script {
+                    echo 'need access to image, then need to stop existing container and run new one. Need to specify name so know which to stop'
+                }
+            }
+        }
+        
+    }
 }

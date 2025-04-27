@@ -54,7 +54,7 @@ COPY --from=build --chown=nginxuser:nginxgroup /app/dist /usr/share/nginx/html
 # Switch to non-root user
 USER nginxuser
 
-EXPOSE 8080
+EXPOSE 8010
 
 # Avoid nginx:alpine's default entrypoint scripts
 ENTRYPOINT []

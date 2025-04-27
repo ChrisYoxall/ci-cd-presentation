@@ -76,6 +76,7 @@ namespace BuildDeploy.Demo.Tests
             Assert.Equal(gitHubUser.Id, responseValue.User?.Id);
             Assert.Equal(gitHubUser.Name, responseValue.User?.Name);
             Assert.Equal(gitHubUser.Company, responseValue.User?.Company);
+            Assert.Equal(gitHubUser.PublicRepos, responseValue.User?.PublicRepos);
         }
 
         [Fact]
