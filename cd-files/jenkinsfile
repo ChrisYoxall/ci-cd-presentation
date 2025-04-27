@@ -17,14 +17,14 @@ pipeline {
         stage('Checkout') {
             steps {
                 cleanWs()
-                checkout([
+                checkout scm: [
                     $class: 'GitSCM',
                     branches: [[name: "${params.BRANCH_NAME}"]],
                     userRemoteConfigs: [[
-                        url: 'https://github.com/ChrisYoxall/ci-cd-presentation.git'
-                        // No credentials needed for public repo
+                        url: 'https://github.com/ChrisYoxall/ci-cd-presentation.git',
+                        credentialsId: ''
                     ]]
-                ])
+                ]
             }
         }
     
