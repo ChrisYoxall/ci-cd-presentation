@@ -16,7 +16,14 @@ pipeline {
     
         stage('Checkout') {
             steps {
-                git branch: "${params.BRANCH_NAME}", url: scm.userRemoteConfigs[0].url
+                checkout([
+                    $class: 'GitSCM',
+                    branches: [[name: "${params.BRANCH_NAME}"]],
+                    userRemoteConfigs: [[
+                        url: 'https://github.com/ChrisYoxall/ci-cd-presentation.git'
+                        // No credentials needed for public repo
+                    ]]
+                ])
             }
         }
     
