@@ -8,6 +8,11 @@ pipeline {
         timestamps()
     }
     
+    triggers {
+        pollSCM('* * * * *')
+    }
+
+    
     parameters {
         string(name: 'BRANCH_NAME', defaultValue: 'main', description: 'Git branch to build')
     }
@@ -52,7 +57,9 @@ pipeline {
         }
         
         stage('Build and Run') {
+            
             parallel {
+                
                 stage('SPA') {
                     stages {
                         stage('Build SPA') {
@@ -98,7 +105,9 @@ pipeline {
                         }
                     }
                 }
+                
             }
-        }
+        } // Build and Run stage finished
+        
     }
 }
