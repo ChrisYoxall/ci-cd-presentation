@@ -1,3 +1,4 @@
+
 pipeline {
 
     agent any
@@ -12,9 +13,7 @@ pipeline {
     }
 
     environment {
-        SPA_IMAGE = ''
         SPA_CONTAINER_NAME = 'react-spa'
-        API_IMAGE = ''
         API_CONTAINER_NAME = 'dotnet-api'
     }
     
@@ -30,50 +29,76 @@ pipeline {
         stage('Get image names') {
             steps {
                 script {
+                
+                    // Make sure we get a valid commit hash
                     def commitHash = sh(script: 'git rev-parse --short HEAD', returnStdout: true).trim()
+                    
+                    // Verify commit hash was obtained
+                    if (commitHash?.trim()) {
+                        echo "Commit hash retrieved: ${commitHash}"
+                    } else {
+                        error "Failed to retrieve git commit hash"
+                    }
+                    
+                    // Set environment variables with full image names
                     env.SPA_IMAGE = "react-spa:${commitHash}-${BUILD_NUMBER}"
                     env.API_IMAGE = "dotnet-api:${commitHash}-${BUILD_NUMBER}"
+                    
+                    // Log to verify they were set
+                    echo "SPA_IMAGE set to: ${env.SPA_IMAGE}"
+                    echo "API_IMAGE set to: ${env.API_IMAGE}"
                 }
             }
         }
         
-        stage('Build SPA') {
-            steps {
-                dir('react-spa') {
-                    script {
-                        sh "docker build -t ${env.SPA_IMAGE} ."
+        stage('Build and Run') {
+            parallel {
+                stage('SPA') {
+                    stages {
+                        stage('Build SPA') {
+                            steps {
+                                dir('react-spa') {
+                                    script {
+                                        sh "docker build -t ${env.SPA_IMAGE} ."
+                                    }
+                                }
+                            }
+                        }
+                        
+                        stage('Run SPA') {
+                            steps {
+                                script {
+                                    sh "docker container stop ${env.SPA_CONTAINER_NAME} || true"
+                                    sh "docker run --rm -d -p 8010:8010 --name ${env.SPA_CONTAINER_NAME} ${env.SPA_IMAGE}"
+                                }
+                            }
+                        }
+                    }
+                }
+                
+                stage('API') {
+                    stages {
+                        stage('Build API') {
+                            steps {
+                                dir('dotnet-api') {
+                                    script {
+                                        sh "docker build -t ${env.API_IMAGE} ."
+                                    }
+                                }
+                            }
+                        }
+                        
+                        stage('Run API') {
+                            steps {
+                                script {
+                                    sh "docker container stop ${env.API_CONTAINER_NAME} || true"
+                                    sh "docker run --rm -d -p 8020:8020 --name ${env.API_CONTAINER_NAME} ${env.API_IMAGE}"
+                                }
+                            }
+                        }
                     }
                 }
             }
         }
-        
-        stage('Build API') {
-            steps {
-                dir('dotnet-api') {
-                    script {
-                        sh "docker build -t${env.API_IMAGE} ."
-                    }
-                }
-            }
-        }
-        
-        stage('Run SPA') {
-            steps {
-                script {
-                    sh "docker container stop ${env.API_CONTAINER_NAME}"
-                    sh "docker run --name ${env.API_CONTAINER_NAME} ${env.API_IMAGE}"
-                }
-            }
-        }
-        
-        stage('Run API') {
-            steps {
-                script {
-                    sh "docker container stop ${env.SPA_CONTAINER_NAME}"
-                    sh "docker run --name ${env.SPA_CONTAINER_NAME} ${env.SPA_IMAGE}"
-                }
-            }
-        }
-        
     }
 }
