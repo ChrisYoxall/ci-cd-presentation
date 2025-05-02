@@ -1,0 +1,11 @@
+antisamy-markup-formatter:173.v680e3a_b_69ff3
+build-timeout:1.38
+credentials-binding:687.v619cb_15e923f
+cloudbees-folder:6.1012.v79a_86a_1ea_c1f
+dark-theme:524.vd675b_22b_30cb_
+git:5.7.0
+github:1.43.0
+matrix-auth:3.2.6
+pipeline-graph-view:458.vda_20b_9b_63f10
+timestamper:1.28
+workflow-aggregator:608.v67378e9d3db_1
