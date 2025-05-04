@@ -1,13 +1,4 @@
 
-
-
-Timing:
-* roughly 20 minutes on theory, up to slide seven
-* roughly 20 minutes talking GitHub Actions, working through demo
-* 20 minutes to play with and hopefully run the demo workflows
-
-
-
 ### SLIDE ONE (TITLE PAGE) - CI / CD
 
 * I'm assuming you want to be or learn more about software development?
@@ -149,9 +140,77 @@ From https://dev.to/github/the-githubtoken-in-github-actions-how-it-works-change
 * The way this works is that when you enable GitHub Actions in a repository, GitHub installs a GitHub App on that. The GITHUB_TOKEN secret is a GitHub App installation access token.
 
 
-### SLIDE 11 - Final Notes
+### SLIDE 11 — Final Notes
 
 * Its nice if developers can run steps locally. Consider this when designing a pipeline
 * Use Actions from reputable sources. Use popular Actions. Consider what version/commit to run or even fork into
         your repo
 
+
+### SLIDE 12 - PART TWO - CONTINUOUS DELIVERY
+
+GO THROUGH CI SLIDES VERY VERY QUICKLY
+
+
+### SLIDE 13 — Take a step back
+
+Big picture of what software engineering is.
+
+Hard to know what to build. Need to get changes in front of a customer, when and how is the question.
+
+My favorite definition: Software engineering is the application of an empirical, scientific approach to finding efficient, economic solutions to practical problems in software.
+
+All these quotes highlight the need for iteration. How often do you iterate? CD is about fast iteration -> regular feedback.
+
+
+### SLIDE 14 — Definition
+
+Usually I hear people talk about Continuous Delivery it means deploying to production, but when you search for a
+definition onlilne it usually has continuous delivery and continuous deployments as stated here.
+
+Throughout this talk I'm assuming you are going all the way to production.
+
+
+### SLIDE 15 - CD Builds ON CI
+
+* Need CI in place first. Focus on CI first, then think about CD
+* Tests and Feature Toggling as per CD chat.
+      Testing is interesting. Bit of a Grey area whether API testing, End-to-End testing, Performance Testing
+      is CI or CD? I like to have it part of CI. Get feedback ASAP (shift-left). Want that fast feedback
+      on a commit, but it's ok if all the tests take longer. Start getting into monolith/microservice discussion.
+* Technically, CD is just pushing to prod - BUT in practice it's more of a mindset change to how you develop.
+        Small batches, effective tests instead of lots of tests, communication between teams, plus next points
+* Observability vs Monitoring. People will watch a deploy if the process is fast enough.
+* Infrastructure as Code (i.e. Terraform, Ansible, etc.). Configuration and Secret management is also a consideration.
+* Need a rollback strategy. This is the same even if you don't do CD. Easier to rollback a small change.
+
+
+### SLIDE 16 - Why do CD?
+
+* Visit DORA site
+    - High correlation between factors DORA tracks and company success.
+    - Counterintuitive, but DORA proves that going faster has improved quality (as long as safety is built in)
+    - Go over 'research program' link topics - expand by selecting detailed view mode.
+
+
+Talk a little bit about my experiences:
+
+- Deployments of EIS at 10 p.m. at night
+- Deployment where lots of errors start getting flagged in dashboards and nobody notices (once tester even
+- ok'd it)
+- Current work - slack integration (just ship it, honeycomb & how we block deployments)
+
+
+Highlight:
+- It's CD about tools, it's about mindset.
+- CD is developing a repeatable, reliable release process (a process is tooling and practices)
+- It's not about testing and deploying every commit, but the commit to a shared common branch
+
+
+### SLIDE 17 - Questions & Demo
+
+Demo is a Jenkins file that builds and deploys locally. Shows:
+- Pipelines as code (similar to GitHub)
+- Scripted the creation of Jenkins
+- Containerisation
+- Make a small change and watch re-deploy (will have to trigger manually)
