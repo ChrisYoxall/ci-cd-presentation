@@ -24,7 +24,14 @@ pipeline {
     
     stages {
     
-        stage('Checkout') {
+        stage('Checkout Feature') {
+        
+            when {
+                not {
+                    equals expected: 'main', actual: params.BRANCH_NAME
+                }
+            }
+
             steps {
                 git branch: "${params.BRANCH_NAME}", url: scm.userRemoteConfigs[0].url
             }
