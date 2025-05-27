@@ -6,6 +6,7 @@ Instructions: https://github.com/jenkinsci/docker/blob/master/README.md
 Latest: https://www.jenkins.io/changelog-stable/
 
 ### Build and run custom Jenkins image
+
 Build a custom Jenkins image with a fairly minimal set of plugins:
 
     docker build -t custom-jenkins/jenkins:2.492.3 -f ./Dockerfile_custom_jenkins .
@@ -44,5 +45,5 @@ To set up pipeline:
     - Script Path: cd-files/jenkinsfile
     - Click save
 
-Run the pipeline. If you look in the configuration screen again for the pipeline after a run you will some sections
+Run the pipeline. If you look in the configuration screen again for the pipeline after a run, you will see some sections
 such as a trigger and parameter have been added which came from the Jenkinsfile.
