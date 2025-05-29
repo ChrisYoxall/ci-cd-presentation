@@ -75,7 +75,7 @@ const App: React.FC = () => {
                 <ul className="space-y-2">
                     {data.isValid ? (
                         <>
-                            <li>Username: {data.user.login}</li>
+                            <li>User Name: {data.user.login}</li>
                             <li>ID: {data.user.id}</li>
                             <li>Name: {data.user.name}</li>
                             <li>Company: {data.user.company}</li>
