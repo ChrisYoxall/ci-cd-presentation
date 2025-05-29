@@ -64,7 +64,7 @@ describe('App Component', () => {
 
         // Wait for user data to be displayed
         await waitFor(() => {
-            expect(screen.getByText(/Username: login_123/i)).toBeInTheDocument();
+            expect(screen.getByText(/User Name: login_123/i)).toBeInTheDocument();
             expect(screen.getByText(/Company: company_ABC/i)).toBeInTheDocument();
             expect(screen.getByText(/Public repos: 3/i)).toBeInTheDocument();
         });
